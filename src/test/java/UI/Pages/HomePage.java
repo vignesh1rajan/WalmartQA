@@ -2,6 +2,7 @@ package UI.Pages;
 
 import UI.AbstractPageObject.HeadPageBase;
 import UI.AbstractPageObject.PageBase;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,7 +20,11 @@ public class HomePage extends HeadPageBase{
     @FindBy(id = "login-username") private WebElement userID;
     @FindBy(id = "login-password") private WebElement userPass;
     @FindBy(className = "login-sign-in-btn") private WebElement signInBtn;
-    @FindBy(id = "container-account") private WebElement accountContainer;
+    @FindBy(className = "center") private WebElement center;
+
+    @FindBy(className = "js-searchbar-input") private WebElement searchBar;
+    @FindBy(className = "searchbar-submit") private WebElement searchSubmit;
+   // @FindBy(className = "recent-orders-heading") private WebElement accountContainer;
 
     /****************
      * Constructor
@@ -59,7 +64,16 @@ public class HomePage extends HeadPageBase{
         userID.sendKeys(username);
         userPass.sendKeys(passWord);
         signInBtn.click();
+        Assert.assertTrue(isWebElementInvisible(By.id("login-sign-in-btn")), " Sign in Button did not disappear");
+        isWebElementVisible(center);
+        WebElement accountContainer = center.findElement(By.className("container-account"));
         return isWebElementVisible(accountContainer);
+    }
+
+    public ItemListPage serchForItem(String item){
+        searchBar.sendKeys(item);
+        searchSubmit.click();
+        return new ItemListPage(this);
     }
 
 }

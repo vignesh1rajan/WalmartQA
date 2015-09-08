@@ -84,6 +84,7 @@ public abstract class PageBase {
             return false;
         }
     }
+
     /**
      * Returns web driver instance used by this page.
      *
