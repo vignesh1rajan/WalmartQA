@@ -6,7 +6,7 @@ Getting Started:
 Pre-requisites- 
   The environment must contain git, maven, firefox and java in order to run the tests successfully
 
-Installation from commandline -
+Installation from command line -
   1. Create a directory to store project
   2. Clone from git-hub: git clone https://github.com/vignesh1rajan/HomeAway.git
   3. CD into the directory from above and pull dependencies and run tests
@@ -31,7 +31,7 @@ Without proper documentation, I was also unable to find the use for the getToken
 
 Also there were inconsistencies with the URI structures - the initial call to login is api.mobile.walmart.com while subsequent calls were https://mobile.walmart.com
 
-There were lots of redundant infomation from the get item calls like department metadata that made the call return 100+ of datafields 
+There were lots of redundant information from the get item calls like department metadata that made the call return 100+ of datafields 
 which would slow down the calls. 
 Proper GET, POST methods were not used according to REST standards.
 
