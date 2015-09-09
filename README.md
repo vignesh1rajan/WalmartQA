@@ -18,6 +18,7 @@ Running from IDE-
   3. Create a TestNG configuration by "SuiteName" and choose any of .xml tests from "src/test/resources/" folder.
   (RegressionTest.xml contains all the tests)
   Available tests suites are - APITest.xml, LoginOrderTest.xml, RegressionTest.xml
+  Test Reports are available at - \target\surefire-reports 
 Notes: In order to keeps tests from failing move curser away from browser area (task bar).
 
 Issues:
