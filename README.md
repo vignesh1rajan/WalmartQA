@@ -10,7 +10,7 @@ Installation from commandline -
   1. Create a directory to store project
   2. Clone from git-hub: git clone https://github.com/vignesh1rajan/HomeAway.git
   3. CD into the directory from above and pull dependencies and run tests
-      mvn clean install -DsuiteXmlFile=Resources/RegressionTest.xml
+      mvn clean install -DsuiteXmlFile=RegressionTest.xml
 
 Running from IDE-
   1. Import project as a maven project
