@@ -64,7 +64,7 @@ public class HomePage extends HeadPageBase{
         userID.sendKeys(username);
         userPass.sendKeys(passWord);
         signInBtn.click();
-        Assert.assertTrue(isWebElementInvisible(By.id("login-sign-in-btn")), " Sign in Button did not disappear");
+        Assert.assertTrue(isWebElementInvisible(By.id("js-login-wrapper-container")), " Sign in Button did not disappear");
         isWebElementVisible(center);
         WebElement accountContainer = center.findElement(By.className("container-account"));
         return isWebElementVisible(accountContainer);

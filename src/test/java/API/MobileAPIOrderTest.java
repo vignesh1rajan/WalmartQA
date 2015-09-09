@@ -71,10 +71,10 @@ public class MobileAPIOrderTest {
                         parameter("p6", "50").
                         parameter("p7", "[]").
                         parameter("e", "1").
-                        when().
+                when().
 
                         post("m/j").
-                        then().
+                then().
                         log().all().
                         statusCode(200).
                         //root("item").
@@ -100,6 +100,26 @@ public class MobileAPIOrderTest {
 
     @Test
     public void addItemToCart(){
+
+       int count =
+       given().
+                log().all().
+                parameter("service","Cart").
+                parameter("method","add").
+                parameter("p1", "25710662").
+                parameter("p2", "0").
+                parameter("e", "1").
+        when().
+                get("m/j").
+        then().
+                log().all().
+                statusCode(200).
+        extract()
+                .path("count");
+
+      
+
+
 
 
     }

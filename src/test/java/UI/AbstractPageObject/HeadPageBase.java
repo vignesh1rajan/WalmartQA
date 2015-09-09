@@ -21,6 +21,7 @@ public abstract class HeadPageBase extends PageBase {
     @FindBy(id = "department-navigation") protected WebElement deptNavigation;
     @FindBy(linkText = "My Account") protected WebElement accountLink;
     @FindBy(linkText = "Sign In") protected WebElement accountSignIn;
+    @FindBy(className = "cart-spinner-backdrop") WebElement loadingIcon;
 
 
 

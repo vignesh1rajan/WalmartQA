@@ -3,6 +3,7 @@ package UI.TestClasses;
 import UI.AbstractPageObject.HeadPageBase;
 import UI.Pages.HomePage;
 import UI.Pages.ItemListPage;
+import UI.Pages.ItemPage;
 import UI.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -17,6 +18,7 @@ import java.util.AbstractCollection;
 public class LoginOrderTest extends TestBase {
     HomePage homePage = null;
     ItemListPage itemListPage = null;
+    ItemPage itemPage = null;
 
     String userName = "vignesh1rajan@gmail.com";
     String passWord = "mpt232";
@@ -53,7 +55,7 @@ public class LoginOrderTest extends TestBase {
         Assert.assertTrue(homePage.logIn(userName, passWord), "Log in Test failed");
     }
 
-    @Test(description = "04) Search for Item",dependsOnMethods = "logIn", groups = "OrderTest")
+    @Test(description = "04) Log in to account",dependsOnMethods = "logIn", groups = "OrderTest")
     public void searchForTest(){
         itemListPage =  homePage.serchForItem(searchItem);
     }
@@ -63,4 +65,14 @@ public class LoginOrderTest extends TestBase {
         Assert.assertTrue(itemListPage.findItem(itemName), "Item not found");
 
     }
+
+    @Test(description = "05) Browse to Item Page, Add to cart",dependsOnMethods = "findItemInList", groups = "OrderTest")
+    public void getItemPage(){
+        itemPage = itemListPage.getItemPage();
+        Assert.assertTrue(itemPage.validateItemPage(itemName), "Item Page Name does not match item " + itemName);
+        itemPage.addToCart();
+        itemPage.viewCart();
+    }
+
+
 }

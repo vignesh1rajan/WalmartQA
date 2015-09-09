@@ -2,6 +2,7 @@ package UI.Pages;
 
 import UI.AbstractPageObject.HeadPageBase;
 import UI.AbstractPageObject.PageBase;
+import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,18 +42,20 @@ public class ItemListPage extends HeadPageBase {
         boolean found = false;
         List<WebElement>  itemList = items.findElements(By.className("js-product-title"));
         for(WebElement item: itemList){
-            if(item.getText().equalsIgnoreCase(itemName))
+            if(item.getText().equalsIgnoreCase(itemName)) {
                 item.click();
                 found = true;
-
+                break;
+            }
         }
         return found;
     }
 
-    public boolean getItemPage(){
+    public ItemPage getItemPage(){
         isWebElementInvisible(By.className("js-product-title"));
-        return isWebElementVisible(itemContainer);
-
-
+        Assert.assertTrue(isWebElementVisible(itemContainer), "Item page not visible");
+        return new ItemPage(this);
     }
+
+
 }
