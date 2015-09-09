@@ -5,6 +5,7 @@ import UI.Pages.HomePage;
 import UI.Pages.ItemListPage;
 import UI.Pages.ItemPage;
 import UI.TestBase;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
@@ -67,11 +68,12 @@ public class LoginOrderTest extends TestBase {
     }
 
     @Test(description = "05) Browse to Item Page, Add to cart",dependsOnMethods = "findItemInList", groups = "OrderTest")
-    public void getItemPage(){
+    public void addItemToCart(){
         itemPage = itemListPage.getItemPage();
         Assert.assertTrue(itemPage.validateItemPage(itemName), "Item Page Name does not match item " + itemName);
         itemPage.addToCart();
-        itemPage.viewCart();
+        itemPage.viewCart(itemName);
+        itemPage.clearCart();
     }
 
 

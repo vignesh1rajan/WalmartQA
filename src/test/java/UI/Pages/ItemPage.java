@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.Assert;
 
 /**
  * Created by vrajan on 9/8/2015.
@@ -17,8 +18,10 @@ public class ItemPage extends HeadPageBase {
     @FindBy(id = "WMItemAddToCartBtn") private WebElement addToCartBtn;
     @FindBy(className = "js-pac-modal") private WebElement popUPcart;
     @FindBy(className = "PACViewCartBtn") private WebElement viewCartBtn;
-    //@FindBy(id = "CartItemInfo") private WebElement
-
+    @FindBy(id = "CartItemInfo") private WebElement itemHeader;
+    @FindBy(className = "chooser-option-curren") private WebElement itemQuantity;
+    @FindBy(id = "chooser-option-curren") private WebElement removeItem;
+    @FindBy(className = "cart-list-empty") private WebElement emptyCart;
     /****************
      * Constructor
      * @param webDriver - WebDriver used to interact with the page
@@ -47,11 +50,18 @@ public class ItemPage extends HeadPageBase {
       return isWebElementVisible(popUPcart);
     }
 
-    public void viewCart(){
+    public void viewCart(String itemName){
         isWebElementVisible(viewCartBtn);
+        viewCartBtn.click();
         isWebElementInvisible(By.id("cart-spinner-backdrop"));
+        isWebElementVisible(itemHeader);
+        Assert.assertTrue(itemHeader.getText().equalsIgnoreCase(itemName), "Item does not equal to added Item ");
+        Assert.assertTrue(itemQuantity.getText().equals("1"));
 
+    }
 
+    public void clearCart(){
+        removeItem.click();
 
     }
 

@@ -1,5 +1,12 @@
 package API;
 
+
+import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.response.Cookie;
+import com.jayway.restassured.response.Cookies;
+import com.jayway.restassured.response.Response;
+
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 
@@ -7,14 +14,13 @@ import com.jayway.restassured.RestAssured;
 import org.testng.annotations.Test;
 
 
-import javax.xml.ws.Response;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.withArgs;
+
+import static com.jayway.restassured.RestAssured.sessionId;
 import static org.hamcrest.Matchers.*;
 
 /**
@@ -28,6 +34,10 @@ public class MobileAPIOrderTest {
 
     String itemID = "25710662";
 
+    Cookies cookies;
+    Cookie cookie;
+    String sessionId;
+
     @BeforeClass
     public void setup(){
         RestAssured.baseURI= "https://api.mobile.walmart.com";
@@ -37,7 +47,7 @@ public class MobileAPIOrderTest {
     @Test
     public void getToken(){
 
-        String token =
+        Response response =
         given().
                 log().path().
                 formParam("email", userName).
@@ -48,15 +58,23 @@ public class MobileAPIOrderTest {
         then().
                 log().ifError().
                 statusCode(200).
-        extract().
-                path("token");
+        extract().response();
+               // sessionId().
+               // path("token");
+        String token = response.jsonPath().getString("token");
 
-        System.out.println(token);
+       sessionId = response.getSessionId();
+      //cookies =  response.detailedCookie("SSID");
+
+
+        System.out.println(sessionId);
 
     }
-    @Test
+    @Test(dependsOnMethods = "getToken",description = " Search for item and parse the returned json for item"
+            , alwaysRun = true)
     public void searchforItem() {
         RestAssured.baseURI = "https://mobile.walmart.com";
+        RestAssured.sessionId = sessionId;
         //Create a Array list of objest from the Rest call
         ArrayList<Map<String, ?>> jsonArray =
                 given().
@@ -71,6 +89,7 @@ public class MobileAPIOrderTest {
                         parameter("p6", "50").
                         parameter("p7", "[]").
                         parameter("e", "1").
+                        //cookie(cookies).
                 when().
 
                         post("m/j").
@@ -98,29 +117,55 @@ public class MobileAPIOrderTest {
 
     }
 
-    @Test
+    @Test(dependsOnMethods = "searchforItem", alwaysRun = true)
     public void addItemToCart(){
 
-       int count =
+       Response response =
        given().
                 log().all().
+                sessionId(sessionId).
                 parameter("service","Cart").
                 parameter("method","add").
                 parameter("p1", "25710662").
                 parameter("p2", "0").
                 parameter("e", "1").
+                //cookie(cookies).
         when().
                 get("m/j").
         then().
                 log().all().
                 statusCode(200).
-        extract()
-                .path("count");
+        extract().response();
+                //.path("count");
 
+        sessionId = response.getSessionId();
+        cookie = response.detailedCookie("WMSessionID");
+        //Assert.assertTrue(count == 1);
 
+    }
 
-
+    @Test(dependsOnMethods = "searchforItem", alwaysRun = true)
+    public void getCartItems(){
+        Response response =
+        given().
+                log().all().
+                sessionId(sessionId).
+                queryParam("service", "Cart").
+                queryParam("method","get").
+                queryParam("p1", "[\"ACTUAL\",\"SAVE_FOR_LATER\"]").
+                queryParam("e", "1").
+                cookie(cookie).
+        when().
+                get("m/j").
+        then().
+                log().all().
+                statusCode(200).
+        extract().response();
+                //.path("items");
+        //itemList.containsValue(itemID);
 
 
     }
+
+
 }

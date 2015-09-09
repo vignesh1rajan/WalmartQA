@@ -46,7 +46,7 @@ public class TestBase {
     }
 
     @AfterClass(groups =
-            {"SmokeTest"})
+            {"OrderTest"})
     public void afterClass(){
         webDriver.close();
         webDriver.quit();
