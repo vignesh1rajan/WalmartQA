@@ -33,7 +33,7 @@ Also there were inconsistencies with the URI structures - the initial call to lo
 
 There were lots of redundant infomation from the get item calls like department metadata that made the call return 100+ of datafields 
 which would slow down the calls. 
-Proper GET, POST methods were not used accourding to REST standards.
+Proper GET, POST methods were not used according to REST standards.
 
 Tools:
 
