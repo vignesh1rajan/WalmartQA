@@ -5,7 +5,6 @@ import UI.Pages.HomePage;
 import UI.Pages.ItemListPage;
 import UI.Pages.ItemPage;
 import UI.TestBase;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.Assert;
