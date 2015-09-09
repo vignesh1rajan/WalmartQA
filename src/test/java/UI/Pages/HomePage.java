@@ -51,6 +51,10 @@ public class HomePage extends HeadPageBase{
         return new HomePage(this);
     }
 
+    /**
+     * Goes to the login page by clicking on the account link
+     * @return
+     */
     public boolean navLoginPage(){
         accountLink.click();
         Assert.assertTrue(isWebElementVisible(loginContainer), "Login Page is not visible");
@@ -58,6 +62,13 @@ public class HomePage extends HeadPageBase{
         return isWebElementVisible(loginContainer);
     }
 
+    /**
+     * Given the login page, the username and password are entered and sign-in button is clicked. Then makes sure the
+     * account page is visible afterwards to confirm login.
+     * @param username
+     * @param passWord
+     * @return
+     */
     public boolean logIn(String username, String passWord){
 
         Assert.assertTrue(isWebElementVisible(userID), "UserID input not visible");
@@ -70,6 +81,11 @@ public class HomePage extends HeadPageBase{
         return isWebElementVisible(accountContainer);
     }
 
+    /**
+     * Uses the search bar lookup the item. Returns the list page of items from the search
+     * @param item - name of item to be searched
+     * @return ItemListPage - List page containing object from the search
+     */
     public ItemListPage serchForItem(String item){
         searchBar.sendKeys(item);
         searchSubmit.click();

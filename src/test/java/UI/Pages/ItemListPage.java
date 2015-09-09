@@ -38,6 +38,11 @@ public class ItemListPage extends HeadPageBase {
         PageFactory.initElements(getWebDriver(),this);
     }
 
+    /**
+     *
+     * @param itemName - uses the name to iterate all of the items from the page, and click on the matching item.
+     * @return boolean - return true if item is found.
+     */
     public boolean findItem(String itemName){
         boolean found = false;
         List<WebElement>  itemList = items.findElements(By.className("js-product-title"));
@@ -50,7 +55,10 @@ public class ItemListPage extends HeadPageBase {
         }
         return found;
     }
-
+    /**
+     * Checks if the item is found and the item page is visible.
+     * @return IteamPage - new ItemPage Object for the found item
+     */
     public ItemPage getItemPage(){
         isWebElementInvisible(By.className("js-product-title"));
         Assert.assertTrue(isWebElementVisible(itemContainer), "Item page not visible");

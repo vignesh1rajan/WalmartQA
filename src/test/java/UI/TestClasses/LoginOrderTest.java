@@ -51,28 +51,29 @@ public class LoginOrderTest extends TestBase {
         homePage.navLoginPage();
     }
 
-    @Test(description = "03) Navigate to accounts Page", dependsOnMethods = "navigateToLoginPage",groups = "OrderTest")
+    @Test(description = "03) Log in to the accounts Page", dependsOnMethods = "navigateToLoginPage",groups = "OrderTest")
     public void logIn(){
         Assert.assertTrue(homePage.logIn(userName, passWord), "Log in Test failed");
     }
 
-    @Test(description = "04) Log in to account",dependsOnMethods = "logIn", groups = "OrderTest")
+    @Test(description = "04) Search for item",dependsOnMethods = "logIn", groups = "OrderTest")
     public void searchForTest(){
         itemListPage =  homePage.serchForItem(searchItem);
     }
 
-    @Test(description = "04) Search for Item",dependsOnMethods = "searchForTest", groups = "OrderTest")
+    @Test(description = "04) Find Item from list",dependsOnMethods = "searchForTest", groups = "OrderTest")
     public void findItemInList(){
         Assert.assertTrue(itemListPage.findItem(itemName), "Item not found");
 
     }
 
-    @Test(description = "05) Browse to Item Page, Add to cart",dependsOnMethods = "findItemInList", groups = "OrderTest")
+    @Test(description = "05) Browse to item page, Add to cart, Verify and clear cart",dependsOnMethods = "findItemInList", groups = "OrderTest")
     public void addItemToCart(){
         itemPage = itemListPage.getItemPage();
         Assert.assertTrue(itemPage.validateItemPage(itemName), "Item Page Name does not match item " + itemName);
         itemPage.addToCart();
         itemPage.viewCart(itemName);
+        //Clears cart for next test
         itemPage.clearCart();
     }
 
