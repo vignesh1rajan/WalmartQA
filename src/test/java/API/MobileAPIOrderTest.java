@@ -30,7 +30,7 @@ public class MobileAPIOrderTest {
 
     String baseuri = "https://api.data.gov";
     String userName = "Vignesh1rajan@gmail.com";
-    String userPass = "mpt232";
+    String userPass = "*****";
 
     String itemID = "25710662";
 
